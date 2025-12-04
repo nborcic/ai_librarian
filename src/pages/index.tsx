@@ -3,10 +3,10 @@ import Body from "./components/Body";
 
 const index = () => {
   return (
-    <body>
+    <div>
       <Header />
       <Body />
-    </body>
+    </div>
   );
 };
 
