@@ -64,9 +64,9 @@ const Body = () => {
   }, []);
 
   return (
-    <div className="w-full bg-gray-100 text-black shadow-lg">
+    <div className="w-full bg-gray-100 text-black shadow-2xl">
       <div className="w-full bg-gray-100 text-black shadow-lg">
-        F
+        
         <div className="max-w-7xl mx-auto py-8 flex gap-8 h-full ">
           {/* Main Content Area */}
           <main className="flex-1 shadow-lg">
@@ -95,6 +95,8 @@ const Body = () => {
                 </p>
               )}
             </div>
+            {/* Input Area */}
+            <Input userPrompt={userPrompt} setUserPrompt={setUserPrompt} />
           </main>
 
           {/* History Sidebar */}
@@ -119,10 +121,6 @@ const Body = () => {
               </div>
             </div>
           </aside>
-        </div>
-        {/* Input Area */}
-        <div className="w-80 shrink-0 shadow-lg ">
-          <Input userPrompt={userPrompt} setUserPrompt={setUserPrompt} />
         </div>
       </div>
     </div>
