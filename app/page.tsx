@@ -3,7 +3,7 @@ import Body from "./components/Body";
 
 const index = () => {
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen flex flex-col h-screen w-screen">
       <Header />
       <Body />
     </div>
