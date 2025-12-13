@@ -3,29 +3,53 @@ import { motion } from "framer-motion";
 const Input = ({
   userPrompt,
   setUserPrompt,
+  msgToAgent,
 }: {
   userPrompt: string;
   setUserPrompt: (prompt: string) => void;
+  msgToAgent: () => void;
 }) => {
-  const handleSend = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setUserPrompt(userPrompt);
+  const handleSend = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (!userPrompt.trim()) return;
+    msgToAgent();
     setUserPrompt("");
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
   return (
     <>
-      <form className=" shadow-sm p-2 h-12 flex items-center justify-center rounded-xl w-full bg-white/60 gap-10  ">
-        <input
-          type="text"
+      <form
+        onSubmit={handleSend}
+        className=" shadow-sm p-2 flex items-end rounded-xl w-full bg-white/60 gap-10  "
+      >
+        <textarea
           placeholder="Ask me anything"
           value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
-          className="w-full h-full p-2 rounded-xl bg-white/60 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent 
-          focus:ring-offset-2 placeholder:text-gray-500 border-t  border-gray-300 border-dotted"
+          onKeyDown={handleKeyDown}
+          rows={1}
+          className="w-full min-h-10 max-h-32 p-2 rounded-xl bg-white/60 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent 
+          focus:ring-offset-2 placeholder:text-gray-500 border-t border-gray-300 border-dotted resize-none overflow-y-auto"
+          style={{
+            height: "auto",
+            minHeight: "2.5rem",
+          }}
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = "auto";
+            target.style.height = `${Math.min(target.scrollHeight, 128)}px`;
+          }}
         />
         <motion.button
-          type="button"
-          onClick={(e) => handleSend(e)}
+          type="submit"
+          onClick={handleSend}
           className="bg-gray-200 px-6 inline-flex items-center gap-6   text-black p-2 rounded-xl hover hover:bg-gray-500 hover:text-white hover:cursor-pointer "
           whileHover="hover"
           initial="initial"
